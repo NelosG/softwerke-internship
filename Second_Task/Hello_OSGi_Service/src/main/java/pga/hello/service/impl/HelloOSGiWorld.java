@@ -1,5 +1,7 @@
-package pga.hello.service;
+package pga.hello.service.impl;
 
+
+import pga.hello.service.HelloOSGi;
 
 public class HelloOSGiWorld implements HelloOSGi {
 

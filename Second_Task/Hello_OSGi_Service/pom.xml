@@ -23,6 +23,7 @@
                     <instructions>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Bundle-Activator>pga.hello.service.impl.HelloActivator</Bundle-Activator>
                         <Export-Package>pga.hello.service</Export-Package>
                     </instructions>
                 </configuration>
