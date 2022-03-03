@@ -4,37 +4,43 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pga.hello.service</groupId>
-    <artifactId>Hello_OSGi_Service</artifactId>
+    <groupId>pga.hello</groupId>
+    <artifactId>Second.Task</artifactId>
     <version>1.0.0</version>
-    <packaging>bundle</packaging>
+    <packaging>pom</packaging>
 
-    <name>pga_hello_osgi_service</name>
-    <url>https://maven.apache.org</url>
+    <modules>
+        <module>pga.hello.service</module>
+        <module>pga.hello.activator</module>
+    </modules>
+
+    <properties>
+        <!-- General properties -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Bundles output directory -->
+        <!--suppress UnresolvedMavenProperty -->
+        <bundle-output>${session.executionRootDirectory}/Bundles</bundle-output>
+
+        <!-- OSGi -->
+        <osgi.core-version>8.0.0</osgi.core-version>
+
+        <!-- Maven properties -->
+        <maven-bundle-plugin-version>5.1.4</maven-bundle-plugin-version>
+        <maven-compiler-plugin-version>3.10.0</maven-compiler-plugin-version>
+    </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>5.1.4</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Bundle-Name>${project.name}</Bundle-Name>
-                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Activator>pga.hello.service.impl.HelloActivator</Bundle-Activator>
-                        <Export-Package>pga.hello.service</Export-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
+                <version>${maven-compiler-plugin-version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -45,25 +51,21 @@
         <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.core</artifactId>
-            <version>8.0.0</version>
+            <version>${osgi.core-version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.felix/maven-bundle-plugin -->
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>maven-bundle-plugin</artifactId>
-            <version>5.1.4</version>
+            <version>${maven-bundle-plugin-version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.10.0</version>
+            <version>${maven-compiler-plugin-version}</version>
         </dependency>
     </dependencies>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
 </project>
