@@ -1,8 +1,8 @@
-package pga.hello.service.impl;
+package pga.hello.service;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import pga.hello.service.HelloOSGi;
+import pga.hello.service.impl.HelloOSGiWorld;
 
 public class HelloActivator implements BundleActivator {
 
@@ -14,6 +14,5 @@ public class HelloActivator implements BundleActivator {
 
     @Override
     public void stop(BundleContext bundleContext) {
-
     }
 }
