@@ -29,7 +29,6 @@
                     <instructions>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Activator>pga.goodbye.activator.GoodbyeOSGiActivator</Bundle-Activator>
                         <Import-Package>org.osgi.framework, pga.goodbye.service</Import-Package>
                     </instructions>
                 </configuration>

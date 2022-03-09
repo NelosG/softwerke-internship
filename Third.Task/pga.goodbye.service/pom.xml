@@ -29,11 +29,11 @@
                     <instructions>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Bundle-Activator>pga.goodbye.service.impl.GoodbyeActivator</Bundle-Activator>
                         <Export-Package>pga.goodbye.service</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
