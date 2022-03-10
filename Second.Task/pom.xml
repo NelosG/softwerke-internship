@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pga.hello</groupId>
+    <groupId>ru.ifmo.pga.hello</groupId>
     <artifactId>Second.Task</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>pga.hello.service</module>
-        <module>pga.hello.activator</module>
+        <module>ru.ifmo.pga.hello.service</module>
+        <module>ru.ifmo.pga.hello.activator</module>
     </modules>
 
     <properties>

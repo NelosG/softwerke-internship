@@ -1,4 +1,5 @@
 .idea/
+*.jar
 *.iml
 target/
 pom.xml.tag
