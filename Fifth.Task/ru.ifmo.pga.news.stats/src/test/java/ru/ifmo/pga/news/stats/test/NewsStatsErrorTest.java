@@ -4,24 +4,25 @@ package ru.ifmo.pga.news.stats.test;
 import com.rometools.rome.feed.synd.SyndFeed;
 import org.junit.jupiter.api.Test;
 import ru.ifmo.pga.news.stats.impl.exception.NewsStatsException;
-import ru.ifmo.pga.news.stats.test.support.TestService;
 import ru.ifmo.pga.news.stats.test.support.FeedWriter;
+import ru.ifmo.pga.news.stats.test.support.TestService;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-public class NewsStatsErrorTest extends NewsStatsBaseTest{
+
+public class NewsStatsErrorTest extends NewsStatsBaseTest {
 
     @Test
     void errorNullTest() {
         try {
             stats.bind(null);
 
-        }catch (NewsStatsException e) {
+        } catch (NewsStatsException e) {
             assertEquals("Can't bind news service because it's null", e.getMessage());
             return;
         }
-        fail("Expected NewsStatsException with message:\n"+
+        fail("Expected NewsStatsException with message:\n" +
                 "Can't bind news service because it's null");
     }
 
@@ -30,28 +31,22 @@ public class NewsStatsErrorTest extends NewsStatsBaseTest{
         try {
 
 
-        TestService service = new TestService(
-                "testService",
-                new FeedWriter(FeedWriter.FEED_TYPE.RSS_2_0),
-                COUNT_OF_ENTRIES
-        ) {
-            @Override
-            public String getName() {
-                return null;
-            }
-        };
-        stats.bind(service);
-        stats.stats(service.getName());
-        assertEquals(
-                "Can't get news from: " + service.getName() + " newsService" + System.lineSeparator() +
-                        "Cause: News is Null" + System.lineSeparator(),
-                errContent.toString());
-        errContent.reset();
-        }catch (NewsStatsException e) {
+            TestService service = new TestService(
+                    "testService",
+                    new FeedWriter(FeedWriter.FEED_TYPE.RSS_2_0),
+                    COUNT_OF_ENTRIES
+            ) {
+                @Override
+                public String getName() {
+                    return null;
+                }
+            };
+            stats.bind(service);
+        } catch (NewsStatsException e) {
             assertEquals("Can't bind news service because its name is null", e.getMessage());
             return;
         }
-        fail("Expected NewsStatsException with message:\n"+
+        fail("Expected NewsStatsException with message:\n" +
                 "Can't bind news service because its name is null");
     }
 
@@ -70,9 +65,23 @@ public class NewsStatsErrorTest extends NewsStatsBaseTest{
         stats.bind(service);
         stats.stats(service.getName());
         assertEquals(
-                "Can't get news from: testService1 newsService" + System.lineSeparator() +
+                "Can't get news from: " + service.getName() + " newsService" + System.lineSeparator() +
                         "Cause: News is Null" + System.lineSeparator(),
                 errContent.toString());
-        errContent.reset();
+    }
+
+    @Test
+    void unavailableNewsServiceTest() throws NewsStatsException {
+        TestService service = new TestService(
+                "will not use",
+                new FeedWriter(FeedWriter.FEED_TYPE.RSS_2_0),
+                COUNT_OF_ENTRIES
+        );
+        stats.bind(service);
+        stats.stats("errorService");
+        assertEquals(
+                "Can't get news from: errorService newsService" + System.lineSeparator() +
+                        "Cause: Service unavailable" + System.lineSeparator(),
+                errContent.toString());
     }
 }

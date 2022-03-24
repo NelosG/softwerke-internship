@@ -18,7 +18,7 @@ public class HelloOSGiCommand implements HelloCommand {
 
     @Override
     public void hello(String... nameOfUsers) {
-        if(nameOfUsers.length != 1) {
+        if (nameOfUsers.length != 1) {
             System.out.println("Please specify one username.");
             return;
         }

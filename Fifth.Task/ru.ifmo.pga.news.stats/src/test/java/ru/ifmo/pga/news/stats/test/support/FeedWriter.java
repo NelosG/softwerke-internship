@@ -1,7 +1,7 @@
 package ru.ifmo.pga.news.stats.test.support;
 
 import com.rometools.rome.feed.synd.*;
-import ru.ifmo.pga.news.stats.impl.WordCounter;
+import ru.ifmo.pga.news.stats.impl.utils.WordCounter;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
@@ -13,7 +13,6 @@ public class FeedWriter {
 
     private static final DateFormat DATE_PARSER = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
     private static final List<String> FEED_TYPE_MAP;
-    private int feedType = 0;
 
     static {
         FEED_TYPE_MAP = new ArrayList<>();
@@ -27,25 +26,17 @@ public class FeedWriter {
         FEED_TYPE_MAP.add("atom_0.3");
     }
 
-    public enum FEED_TYPE {
-        RSS_0_90,
-        RSS_0_91,
-        RSS_0_92,
-        RSS_0_93,
-        RSS_0_94,
-        RSS_1_0,
-        RSS_2_0,
-        ATOM_0_3
-    }
-
-
+    private int feedType = 0;
 
     public FeedWriter(FEED_TYPE type) {
-        if(type != null){
+        if (type != null) {
             feedType = type.ordinal();
         }
     }
 
+    private static Date getDate() throws ParseException {
+        return DATE_PARSER.parse("02.02.2022 02:02:02");
+    }
 
     public FeedStats getFeed(int countOfEntries) throws ParseException {
         SyndFeed feed = new SyndFeedImpl();
@@ -89,14 +80,14 @@ public class FeedWriter {
     private String generateTitle(WordCounter wordCounter) {
         Random random = new Random();
         try {
-            if(random.nextInt(2) == 0 && !wordCounter.isEmpty()) {
+            if (random.nextInt(2) == 0 && !wordCounter.isEmpty()) {
                 int index = random.nextInt(wordCounter.size());
                 Field field = WordCounter.class.getDeclaredField("wordCount");
                 int i = 0;
                 @SuppressWarnings("unchecked")
                 Map<String, Integer> map = (Map<String, Integer>) field.get(wordCounter);
-                for(Map.Entry<String, Integer> entry : map.entrySet()) {
-                    if(i == index) {
+                for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                    if (i == index) {
                         wordCounter.addWord(entry.getKey());
                         return entry.getKey();
                     }
@@ -107,15 +98,22 @@ public class FeedWriter {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < random.nextInt(6) + 5; i++) {
-            sb.append((char)('a' + random.nextInt(26)));
+            sb.append((char) ('a' + random.nextInt(26)));
         }
         String s = sb.toString();
         wordCounter.addWord(s);
         return s;
     }
 
-    private static Date getDate() throws ParseException {
-        return DATE_PARSER.parse("02.02.2022 02:02:02");
+    public enum FEED_TYPE {
+        RSS_0_90,
+        RSS_0_91,
+        RSS_0_92,
+        RSS_0_93,
+        RSS_0_94,
+        RSS_1_0,
+        RSS_2_0,
+        ATOM_0_3
     }
 
     public static class FeedStats {

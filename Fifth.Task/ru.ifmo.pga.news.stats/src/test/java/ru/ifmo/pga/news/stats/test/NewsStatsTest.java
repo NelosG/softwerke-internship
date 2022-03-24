@@ -1,18 +1,21 @@
 package ru.ifmo.pga.news.stats.test;
 
 
-import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
-import ru.ifmo.pga.news.stats.impl.WordCounter;
 import ru.ifmo.pga.news.stats.impl.exception.NewsStatsException;
+import ru.ifmo.pga.news.stats.impl.utils.WordCounter;
 import ru.ifmo.pga.news.stats.test.support.FeedWriter;
 import ru.ifmo.pga.news.stats.test.support.TestService;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class NewsStatsTest extends NewsStatsBaseTest {
     protected final int COUNT_OF_SERVICES = 1000;
+    protected final int COUNT_OF_WORDS = 10;
+
 
     @Test
     void serviceTest() throws NewsStatsException, NoSuchFieldException, IllegalAccessException {
@@ -30,7 +33,7 @@ public class NewsStatsTest extends NewsStatsBaseTest {
     }
 
     @Test
-    void multipleServiceTest() throws NewsStatsException, NoSuchFieldException, IllegalAccessException {
+    void multipleServicesTest() throws NewsStatsException, NoSuchFieldException, IllegalAccessException {
         TestService service1 = new TestService(
                 "testService1",
                 new FeedWriter(FeedWriter.FEED_TYPE.RSS_2_0),
@@ -67,8 +70,8 @@ public class NewsStatsTest extends NewsStatsBaseTest {
             stats.bind(service);
             stats.stats("all");
             checkOutput(service);
-            outContent.reset();
             stats.unbind(service);
+            outContent.reset();
         }
     }
 
@@ -85,7 +88,7 @@ public class NewsStatsTest extends NewsStatsBaseTest {
         while (sc.hasNext()) {
             actual.add(sc.next());
         }
-        Assert.assertEquals(new HashSet<>(wordCounter.getMostPopularWords().subList(0, 10)),
+        assertEquals(new HashSet<>(wordCounter.getMostPopularWords(COUNT_OF_WORDS)),
                 new HashSet<>(actual));
     }
 

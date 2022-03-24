@@ -3,13 +3,12 @@ package ru.ifmo.pga.news.stats.test;
 
 import org.junit.jupiter.api.Test;
 import ru.ifmo.pga.news.stats.impl.exception.NewsStatsException;
-import ru.ifmo.pga.news.stats.test.support.TestService;
 import ru.ifmo.pga.news.stats.test.support.FeedWriter;
+import ru.ifmo.pga.news.stats.test.support.TestService;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class NewsStatsServiceBindingTest extends NewsStatsBaseTest{
+public class NewsStatsServiceBindingTest extends NewsStatsBaseTest {
 
     @Test
     void serviceBindingTest() throws NewsStatsException {
@@ -43,10 +42,9 @@ public class NewsStatsServiceBindingTest extends NewsStatsBaseTest{
         stats.bind(service2);
         stats.stats();
         assertEquals(createMessage(
-                        service1,
-                        service2
-                ),
-                outContent.toString());
+                service1,
+                service2
+        ), outContent.toString());
         outContent.reset();
 
         stats.unbind(service1);
@@ -55,7 +53,6 @@ public class NewsStatsServiceBindingTest extends NewsStatsBaseTest{
                         service2
                 ),
                 outContent.toString());
-        outContent.reset();
     }
 
     private String createMessage(TestService... services) {
