@@ -2,19 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>ru.ifmo.pga.goodbye</groupId>
-        <artifactId>Third.Task</artifactId>
+        <artifactId>Fifth.Task</artifactId>
+        <groupId>ru.ifmo.pga.news</groupId>
         <version>1.0.0</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ru.ifmo.pga.goodbye.activator</artifactId>
+    <artifactId>ru.ifmo.pga.news.vedomosti</artifactId>
+
     <version>1.0.0</version>
     <packaging>bundle</packaging>
 
-    <name>pga_goodbye_osgi_activator</name>
+    <name>pga_news_vedomosti</name>
     <url>https://maven.apache.org</url>
 
     <build>
@@ -29,7 +29,6 @@
                     <instructions>
                         <Bundle-Name>${project.name}</Bundle-Name>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                        <Import-Package>org.osgi.framework, ru.ifmo.pga.goodbye.service</Import-Package>
                     </instructions>
                 </configuration>
             </plugin>
@@ -38,8 +37,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>ru.ifmo.pga.goodbye</groupId>
-            <artifactId>ru.ifmo.pga.goodbye.service</artifactId>
+            <groupId>ru.ifmo.pga.news</groupId>
+            <artifactId>ru.ifmo.pga.news</artifactId>
             <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>

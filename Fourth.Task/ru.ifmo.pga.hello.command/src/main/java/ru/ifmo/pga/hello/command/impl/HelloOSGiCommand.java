@@ -17,15 +17,11 @@ import ru.ifmo.pga.hello.command.HelloCommand;
 public class HelloOSGiCommand implements HelloCommand {
 
     @Override
-    public void hello(String nameOfUser) {
-        System.out.println("Hello, " + nameOfUser);
-    }
-
-    public void hello() {
-        System.out.println("Please specify one username.");
-    }
-
-    public void hello(String... args) {
-        System.out.println("Please specify one username.");
+    public void hello(String... nameOfUsers) {
+        if(nameOfUsers.length != 1) {
+            System.out.println("Please specify one username.");
+            return;
+        }
+        System.out.println("Hello, " + nameOfUsers[0]);
     }
 }

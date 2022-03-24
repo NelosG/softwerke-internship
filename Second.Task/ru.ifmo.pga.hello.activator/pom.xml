@@ -42,7 +42,7 @@
             <groupId>ru.ifmo.pga.hello</groupId>
             <artifactId>ru.ifmo.pga.hello.service</artifactId>
             <version>1.0.0</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

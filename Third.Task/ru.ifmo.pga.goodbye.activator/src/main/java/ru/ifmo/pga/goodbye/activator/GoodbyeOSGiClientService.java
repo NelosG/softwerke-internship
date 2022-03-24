@@ -7,9 +7,7 @@ import org.osgi.service.component.propertytypes.ServiceDescription;
 import org.osgi.service.component.propertytypes.ServiceVendor;
 import ru.ifmo.pga.goodbye.service.GoodbyeOSGi;
 
-@Component(
-        enabled = false
-)
+@Component
 @ServiceVendor("Pushkarev Gleb")
 @ServiceDescription("Provides a friendly farewell on activation.")
 public class GoodbyeOSGiClientService {

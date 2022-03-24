@@ -106,20 +106,7 @@
             <version>1.5.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.osgi/org.osgi.service.metatype.annotations -->
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.metatype.annotations</artifactId>
-            <version>1.4.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.osgi/org.osgi.framework -->
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.framework</artifactId>
-            <version>1.10.0</version>
-            <scope>provided</scope>
-        </dependency>
+
     </dependencies>
 
 </project>
