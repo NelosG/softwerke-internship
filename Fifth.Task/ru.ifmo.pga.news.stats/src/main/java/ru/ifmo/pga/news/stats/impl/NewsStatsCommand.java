@@ -2,17 +2,17 @@ package ru.ifmo.pga.news.stats.impl;
 
 
 import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
 import org.osgi.service.component.annotations.*;
 import org.osgi.service.component.propertytypes.ServiceDescription;
 import org.osgi.service.component.propertytypes.ServiceVendor;
 import ru.ifmo.pga.news.NewsService;
 import ru.ifmo.pga.news.exception.NewsServiceException;
 import ru.ifmo.pga.news.stats.NewsStats;
+import ru.ifmo.pga.news.stats.impl.exception.NewsStatsException;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component(
         service = NewsStats.class,
@@ -30,6 +30,8 @@ public class NewsStatsCommand implements NewsStats {
     protected final Map<String, NewsService> mediaPortalMap = new TreeMap<>();
 
     protected final Set<String> IGNORED_WORDS;
+
+    protected final int COUNT_OF_WORDS = 10;
 
     {
         IGNORED_WORDS = new HashSet<>();
@@ -64,7 +66,13 @@ public class NewsStatsCommand implements NewsStats {
             policy = ReferencePolicy.DYNAMIC,
             unbind = "unbind"
     )
-    public void bind(NewsService mediaPortal) {
+    public void bind(NewsService mediaPortal) throws NewsStatsException {
+        if(mediaPortal == null) {
+            throw new NewsStatsException("Can't bind news service because it's null");
+        }
+        if(mediaPortal.getName() == null) {
+            throw new NewsStatsException("Can't bind news service because its name is null");
+        }
         mediaPortalMap.put(mediaPortal.getName(), mediaPortal);
     }
 
@@ -91,40 +99,39 @@ public class NewsStatsCommand implements NewsStats {
     }
 
     protected void printStats(Set<String> newsServices) {
-        Map<String, Integer> wordCount = new TreeMap<>();
+        WordCounter wordCount = new WordCounter();
         if (newsServices == null) {
             countWords(wordCount, s -> true);
         } else {
             countWords(wordCount, newsServices::contains);
         }
-        printMostPopular(wordCount, 10);
-    }
-
-    protected void printMostPopular(Map<String, Integer> wordCount, int count) {
-        List<Map.Entry<String, Integer>> list = new ArrayList<>(wordCount.entrySet());
-        list.sort((entryA, entryB) -> entryB.getValue() - entryA.getValue());
-        for (int i = 0; i < list.size() && i < count; ++i) {
-            System.out.println(list.get(i).getKey());
+        List<String> list = wordCount.getMostPopularWords();
+        for (int i = 0; i < list.size() && i < COUNT_OF_WORDS; ++i) {
+            System.out.println(list.get(i));
         }
     }
 
-    protected void countWords(final Map<String, Integer> wordCount,
+    protected void countWords(final WordCounter wordCount,
                               Predicate<String> predicate) {
         mediaPortalMap.entrySet().stream()
                 .filter(entry -> predicate.test(entry.getKey()))
                 .map(Map.Entry::getValue)
                 .forEach(newsService -> {
                     try {
-                        newsService.getNews()
-                                .getEntries()
+                        SyndFeed feed = newsService.getNews();
+                        if(feed == null) {
+                            throw new NewsServiceException("News is Null");
+                        }
+                                feed.getEntries()
                                 .stream()
                                 .map(SyndEntry::getTitle)
                                 .flatMap(title -> Arrays.stream(title.split("\\s+")))
                                 .map(String::toLowerCase)
                                 .filter(s -> !IGNORED_WORDS.contains(s))
-                                .forEach(word -> wordCount.compute(word, (k, v) -> v != null ? v + 1 : 0));
+                                .forEach(wordCount::addWord);
                     } catch (NewsServiceException e) {
-                        System.out.println("Can't get news from: " + newsService.getName() + " newsService");
+                        System.err.println("Can't get news from: " + newsService.getName() + " newsService");
+                        System.err.println("Cause: " + e.getMessage());
                     }
                 });
     }
