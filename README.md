@@ -10,3 +10,7 @@ Stack:
 - OSGi
 - Apache Felix
 - Apache Maven
+- Rome (*RSS creator/parser*)
+
+
+# [Report](https://github.com/NelosG/softwerke-internship/blob/main/report/Report.pdf)
