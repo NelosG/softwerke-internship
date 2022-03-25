@@ -107,7 +107,7 @@ public class NewsStatsCommand implements NewsStats {
                         feed.getEntries()
                                 .stream()
                                 .map(SyndEntry::getTitle)
-                                .flatMap(title -> Arrays.stream(title.split("\\s+")))
+                                .flatMap(title -> Arrays.stream(title.split(",:\\.!\\?\\s+")))
                                 .map(String::toLowerCase)
                                 .forEach(wordCount::addWord);
                     } catch (NewsServiceException e) {
