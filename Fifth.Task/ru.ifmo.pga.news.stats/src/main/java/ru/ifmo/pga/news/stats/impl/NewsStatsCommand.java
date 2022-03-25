@@ -27,7 +27,7 @@ import java.util.function.Predicate;
         }
 )
 @ServiceVendor("Pushkarev Gleb")
-@ServiceDescription("Provides a friendly farewell.")
+@ServiceDescription("Displays the top 10 words in news titles.")
 public class NewsStatsCommand implements NewsStats {
 
     protected final Map<String, NewsService> mediaPortalMap = new TreeMap<>();

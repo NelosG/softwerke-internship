@@ -19,6 +19,6 @@ public class GoodbyeOSGiWorld implements GoodbyeOSGi {
 
     @Override
     public void goodbye() {
-        System.out.println("Goodbye OSGi World!");
+            System.out.println("Goodbye OSGi World!");
     }
 }

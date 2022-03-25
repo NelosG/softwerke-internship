@@ -83,6 +83,12 @@
             <version>${maven-compiler-plugin-version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.felix/maven-scr-plugin -->
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-scr-plugin</artifactId>
+            <version>${maven-scr-plugin-version}</version>
+        </dependency>
 
         <!-- All Annotations -->
 
