@@ -91,6 +91,7 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>maven-scr-plugin</artifactId>
             <version>${maven-scr-plugin-version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Parse and Generate RSS -->
