@@ -1,4 +1,4 @@
-package ru.ifmo.pga.news.stats.impl.exception;
+package ru.ifmo.pga.news.stats.exception;
 
 public class NewsStatsException extends Exception {
     public NewsStatsException() {
