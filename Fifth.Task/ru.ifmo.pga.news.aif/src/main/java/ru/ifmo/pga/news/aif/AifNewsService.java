@@ -23,7 +23,7 @@ import java.util.Locale;
 @Component(
         service = NewsService.class,
         immediate = true,
-        configurationPolicy = ConfigurationPolicy.REQUIRE
+        configurationPolicy = ConfigurationPolicy.OPTIONAL
 )
 @Designate(
         ocd = AifNewsService.AifUrlConfig.class
@@ -32,10 +32,10 @@ import java.util.Locale;
 @ServiceDescription("Displays the top n words in news titles.")
 public class AifNewsService implements NewsService {
 
-    private String urlAddress = "";
+    protected String urlAddress = "";
 
     @Activate
-    public void activate(AifUrlConfig configuration) {
+    protected void activate(AifUrlConfig configuration) {
         urlAddress = configuration.getUrl();
     }
 
@@ -57,7 +57,7 @@ public class AifNewsService implements NewsService {
     }
 
     @ObjectClassDefinition(name = "NewsService:AIF Url Config")
-    public @interface AifUrlConfig {
+    protected @interface AifUrlConfig {
         @AttributeDefinition(
                 name = "AIF Url Config",
                 description = "Enter url for AIF rss"

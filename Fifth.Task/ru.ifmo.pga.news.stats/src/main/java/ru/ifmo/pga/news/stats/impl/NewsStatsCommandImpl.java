@@ -43,7 +43,7 @@ public class NewsStatsCommandImpl implements NewsStatsCommand {
     protected NewsServicesContainer servicesContainer;
 
     @Activate
-    public void activate(CountConfig countConfig) {
+    protected void activate(CountConfig countConfig) {
         COUNT_OF_WORDS = countConfig.getCount();
     }
 
@@ -76,7 +76,7 @@ public class NewsStatsCommandImpl implements NewsStatsCommand {
         newsStats.clear();
     }
 
-    private Set<NewsService> getServicesSet(String[] newsServices) {
+    protected Set<NewsService> getServicesSet(String[] newsServices) {
         Set<NewsService> servicesSet = new HashSet<>();
         if (newsServices.length == 1 && "all".equalsIgnoreCase(newsServices[0])) {
             servicesSet.addAll(servicesContainer.allServices());
@@ -95,7 +95,7 @@ public class NewsStatsCommandImpl implements NewsStatsCommand {
     }
 
     @ObjectClassDefinition(name = "NewsStats:Count of words config")
-    public @interface CountConfig {
+    protected @interface CountConfig {
         @AttributeDefinition(
                 name = "Count config",
                 description = "Enter count of news to show",

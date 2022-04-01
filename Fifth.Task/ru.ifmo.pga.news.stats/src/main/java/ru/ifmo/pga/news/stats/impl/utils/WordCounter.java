@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class WordCounter {
     protected final Set<String> IGNORED_WORDS;
-    private Map<String, Integer> wordCount;
+    protected Map<String, Integer> wordCount;
 
     {
         IGNORED_WORDS = new HashSet<>();
@@ -80,7 +80,7 @@ public class WordCounter {
                 .collect(Collectors.toList());
     }
 
-    private void changeValue(String word, IntFunction<Integer> fun) {
+    protected void changeValue(String word, IntFunction<Integer> fun) {
         if (!IGNORED_WORDS.contains(word) && word.length() > 1) {
             wordCount.compute(word, (k, v) -> v != null ? fun.apply(v) : 0);
         }

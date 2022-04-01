@@ -32,10 +32,10 @@ import java.util.Locale;
 @ServiceDescription("Displays the top n words in news titles.")
 public class LentaNewsService implements NewsService {
 
-    private String urlAddress = "";
+    protected String urlAddress = "";
 
     @Activate
-    public void activate(LentaUrlConfig configuration) {
+    protected void activate(LentaUrlConfig configuration) {
         urlAddress = configuration.getUrl();
     }
 
@@ -57,7 +57,7 @@ public class LentaNewsService implements NewsService {
     }
 
     @ObjectClassDefinition(name = "NewsService:Lenta Url Config")
-    public @interface LentaUrlConfig {
+    protected @interface LentaUrlConfig {
         @AttributeDefinition(
                 name = "Lenta Url Config",
                 description = "Enter url for Lenta rss"

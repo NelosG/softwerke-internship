@@ -32,10 +32,10 @@ import java.util.Locale;
 @ServiceDescription("Displays the top n words in news titles.")
 public class VedomostiNewsService implements NewsService {
 
-    private String urlAddress = "";
+    protected String urlAddress = "";
 
     @Activate
-    public void activate(VedomostiUrlConfig configuration) {
+    protected void activate(VedomostiUrlConfig configuration) {
         urlAddress = configuration.getUrl();
     }
 
@@ -57,7 +57,7 @@ public class VedomostiNewsService implements NewsService {
 
 
     @ObjectClassDefinition(name = "NewsService:Vedomosti Url Config")
-    public @interface VedomostiUrlConfig {
+    protected @interface VedomostiUrlConfig {
         @AttributeDefinition(
                 name = "Vedomosti Url Config",
                 description = "Enter url for Vedomosti rss"
